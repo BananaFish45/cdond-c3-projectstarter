@@ -165,16 +165,16 @@ jobs:
 
   deploy-infrastructure:
     docker:
-    # Docker image here that supports AWS CLI
-    image: amazon/aws-cli
+      # Docker image here that supports AWS CLI
+      - image: amazon/aws-cli
 
     steps:
       # Checkout code from git
       - checkout
-      -run:
-        name: Install dependencies
-        command: |
-          yum install -y tar gzip
+      - run:
+          name: Install dependencies
+          command: |
+            yum install -y tar gzip
 
       - run:
           name: Ensure back-end infrastructure exists
@@ -184,7 +184,6 @@ jobs:
               --stack-name "udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}" \
               --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"  \
               --tags project=udapeople
-           
 
       - run:
           name: Ensure front-end infrastructure exist
@@ -194,7 +193,6 @@ jobs:
               --stack-name "udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}" \
               --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"  \
               --tags project=udapeople
-           
 
       - run:
           name: Add back-end ip to ansible inventory
